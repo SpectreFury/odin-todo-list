@@ -15,13 +15,42 @@
     <title>Todo List</title>
   </head>
   <body>
+    <div class="modal modal-project hide">
+      <form>
+        <button class="btn-cross"><i class="fa-solid fa-x fa-2x"></i></button>
+        <div class="input-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" />
+        </div>
+        <div class="input-group">
+          <label for="description">Description</label>
+          <input type="textgroup" id="title" name="title" />
+        </div>
+        <button type="submit" class="btn-submit">Add</button>
+      </form>
+    </div>
+    <div class="modal modal-todo hide">
+      <form>
+        <button class="btn-cross"><i class="fa-solid fa-x fa-2x"></i></button>
+        <div class="input-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" />
+        </div>
+        <div class="input-group">
+          <label for="date">Date</label>
+          <input type="date" id="date" name="date" />
+        </div>
+        <button type="submit" class="btn-submit">Add</button>
+      </form>
+    </div>
     <nav>
       <h1>Todo List</h1>
+      <button class="btn-new"><i class="fa-solid fa-plus fa-2x"></i></button>
       <button class="btn-add">Add Project</button>
     </nav>
     <main>
       <div class="grid-left">
-        <div class="project">
+        <div class="project active">
           <p class="project-title">Urgent</p>
           <a href="" class="btn-trash"><i class="fa-solid fa-trash-can"></i></a>
         </div>
@@ -42,15 +71,16 @@
         <ul class="todos">
           <li class="todo">
             <p>Finish The Odin Project</p>
+            <h5>18/9/2022</h5>
             <i class="fa-solid fa-pen todo-edit"></i>
             <i class="fa-solid fa-trash todo-delete"></i>
           </li>
           <li class="todo">
             <p>Prepare for the Midterm Examinations</p>
+            <h5>23/9/2022</h5>
             <i class="fa-solid fa-pen todo-edit"></i>
             <i class="fa-solid fa-trash todo-delete"></i>
           </li>
-          
         </ul>
       </div>
     </main>
