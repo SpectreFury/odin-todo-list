@@ -24,7 +24,12 @@
         </div>
         <div class="input-group">
           <label for="description">Description</label>
-          <input type="text" id="title" name="title" />
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="input-description"
+          />
         </div>
         <button type="submit" class="btn-submit btn-project">Add</button>
       </form>
@@ -49,35 +54,13 @@
       <button class="btn-add">Add Project</button>
     </nav>
     <main>
-      <div class="grid-left">
-        <div class="project active">
-          <p class="project-title">Urgent</p>
-          <a href="" class="btn-trash"><i class="fa-solid fa-trash-can"></i></a>
-        </div>
-        <div class="project">
-          <p class="project-title">Important</p>
-          <a href="" class="btn-trash"><i class="fa-solid fa-trash-can"></i></a>
-        </div>
-      </div>
+      <div class="grid-left"></div>
       <div class="grid-right">
         <h2 class="current-title">Urgent</h2>
         <p class="current-description">
           I just add the stuff that's important over here.
         </p>
-        <ul class="todos">
-          <li class="todo">
-            <p>Finish The Odin Project</p>
-            <h5>18/9/2022</h5>
-            <i class="fa-solid fa-pen todo-edit"></i>
-            <i class="fa-solid fa-trash todo-delete"></i>
-          </li>
-          <li class="todo">
-            <p>Prepare for the Midterm Examinations</p>
-            <h5>23/9/2022</h5>
-            <i class="fa-solid fa-pen todo-edit"></i>
-            <i class="fa-solid fa-trash todo-delete"></i>
-          </li>
-        </ul>
+        <ul class="todos"></ul>
       </div>
     </main>
     <script src="main.js"></script>
