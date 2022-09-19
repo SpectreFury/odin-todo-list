@@ -1,4 +1,5 @@
-import Todo from "./todos";
-import eventListeners from "./events";
+import Project from "./Project";
+import { eventListeners, drawProjects } from "./events";
 
+drawProjects();
 eventListeners();
