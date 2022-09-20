@@ -76,6 +76,53 @@ function drawProjects() {
   });
 }
 
+function drawCurrent(div) {
+  const currentTitle = document.querySelector(".current-title");
+  const currentDescription = document.querySelector(".current-description");
+
+  const projects = document.querySelectorAll(".project");
+
+  DUMMY_PROJECTS.forEach((project) => {
+    if (div.children[0].textContent === project.title) {
+      if (currentTitle.textContent === div.children[0].textContent) {
+        return;
+      }
+
+      projects.forEach((project) => {
+        project.classList.remove("active");
+      });
+
+      div.classList.add('active');
+
+      currentTitle.textContent = project.title;
+      currentDescription.textContent = project.description;
+
+      clearTodos();
+
+      console.log(project.todos);
+      project.todos.forEach((todo) => {
+        const ul = document.querySelector(".todos");
+        const li = document.createElement("li");
+        const title = document.createElement("p");
+        const date = document.createElement("h5");
+        const editButton = document.createElement("i");
+        const deleteButton = document.createElement("i");
+
+        li.classList.add("todo");
+
+        editButton.className = "fa-solid fa-pen todo-edit";
+        deleteButton.className = "fa-solid fa-trash todo-delete";
+
+        title.textContent = todo.title;
+        date.textContent = todo.date;
+
+        li.append(title, date, editButton, deleteButton);
+        ul.append(li);
+      });
+    }
+  });
+}
+
 function eventListeners() {
   btnNew.addEventListener("click", () => {
     modalTodo.classList.remove("hide");
@@ -131,6 +178,11 @@ function createProject() {
     return;
   }
 
+  DUMMY_PROJECTS.forEach((project) => {
+    project.isActive = false;
+    removeActive();
+  });
+
   const newProject = new Project(title, description);
   DUMMY_PROJECTS.push(newProject);
 
@@ -139,9 +191,6 @@ function createProject() {
 }
 
 function appendProject(project) {
-  DUMMY_PROJECTS.push(project);
-  console.log(DUMMY_PROJECTS);
-
   const gridLeft = document.querySelector(".grid-left");
   const todos = document.querySelectorAll(".todo");
 
@@ -154,6 +203,16 @@ function appendProject(project) {
   const i = document.createElement("i");
 
   div.classList.add("project");
+  if (project.isActive) {
+    div.classList.add("active");
+  }
+
+  div.addEventListener("click", (e) => {
+    if (e.target.tagName === "DIV" || e.target.tagName === "P") {
+      drawCurrent(div);
+    }
+  });
+
   p.classList.add("project-title");
   a.classList.add("btn-trash");
   i.classList.add("fa-solid");
@@ -191,8 +250,30 @@ function createTodo() {
   DUMMY_PROJECTS.forEach((project) => {
     if (project.isActive) {
       project.todos.push(newTodo);
+      appendTodo(newTodo);
     }
   });
+}
+
+function appendTodo(todo) {
+  const ul = document.querySelector(".todos");
+  const li = document.createElement("li");
+  const title = document.createElement("p");
+  const date = document.createElement("h5");
+  const editButton = document.createElement("i");
+  const deleteButton = document.createElement("i");
+
+  li.classList.add("todo");
+
+  editButton.className = "fa-solid fa-pen todo-edit";
+  deleteButton.className = "fa-solid fa-trash todo-delete";
+
+  title.textContent = todo.title;
+  date.textContent = todo.date;
+
+  li.append(title, date, editButton, deleteButton);
+  ul.append(li);
+  hideModal();
 }
 
 function hideModal() {
@@ -208,6 +289,24 @@ function removeProject(e) {
   } else {
     e.target.parentElement.remove();
   }
+}
+
+function removeActive(project) {
+  const projects = document.querySelectorAll(".project");
+
+  projects.forEach((project) => {
+    if (project.classList.contains("active")) {
+      project.classList.remove("active");
+    }
+  });
+}
+
+function clearTodos() {
+  const todos = document.querySelectorAll(".todo");
+
+  todos.forEach((todo) => {
+    todo.remove();
+  });
 }
 
 export { eventListeners, drawProjects };
