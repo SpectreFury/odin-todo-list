@@ -5,3 +5,5 @@ class Todo {
     this.isCrossed = false;
   }
 }
+
+export default Todo;

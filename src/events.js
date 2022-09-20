@@ -1,4 +1,5 @@
 import Project from "./Project";
+import Todo from "./Todo";
 import DUMMY_PROJECTS from "./dummyprojects";
 
 const modalProject = document.querySelector(".modal-project");
@@ -94,6 +95,8 @@ function eventListeners() {
     btn.addEventListener("click", (e) => {
       if (e.target.classList.contains("btn-project")) {
         createProject();
+      } else {
+        createTodo();
       }
     });
   });
@@ -173,6 +176,23 @@ function appendProject(project) {
   div.append(p, a);
 
   gridLeft.append(div);
+}
+
+function createTodo() {
+  const title = document.querySelector(".todo-title");
+  const date = document.querySelector(".todo-date");
+
+  if (!title || !date) {
+    return;
+  }
+
+  const newTodo = new Todo(title.value, date.value);
+
+  DUMMY_PROJECTS.forEach((project) => {
+    if (project.isActive) {
+      project.todos.push(newTodo);
+    }
+  });
 }
 
 function hideModal() {
