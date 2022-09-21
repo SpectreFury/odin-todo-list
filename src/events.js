@@ -1,5 +1,6 @@
 import Project from "./Project";
 import Todo from "./Todo";
+
 import DUMMY_PROJECTS from "./dummyprojects";
 
 const modalProject = document.querySelector(".modal-project");
@@ -8,7 +9,6 @@ const btnNew = document.querySelector(".btn-new");
 const btnAdd = document.querySelector(".btn-add");
 const btnCross = document.querySelectorAll(".btn-cross");
 const btnSubmit = document.querySelectorAll(".btn-submit");
-const btnTrash = document.querySelectorAll(".btn-trash");
 const form = document.querySelectorAll("form");
 
 function defaultProjects() {
@@ -25,10 +25,16 @@ function drawCurrent(div) {
   const currentTitle = document.querySelector(".current-title");
   const currentDescription = document.querySelector(".current-description");
 
+  if (!div) {
+    currentTitle.textContent = "";
+    currentDescription.textContent = "";
+    return;
+  }
+
   const projects = document.querySelectorAll(".project");
 
   DUMMY_PROJECTS.forEach((project) => {
-    if (div.children[0].textContent === project.title) {
+    if (+div.id === project.id) {
       if (currentTitle.textContent === div.children[0].textContent) {
         return;
       }
@@ -44,7 +50,6 @@ function drawCurrent(div) {
 
       clearTodos();
 
-      console.log(project.todos);
       project.todos.forEach((todo) => {
         const ul = document.querySelector(".todos");
         const li = document.createElement("li");
@@ -104,12 +109,6 @@ function eventListeners() {
       e.preventDefault();
     });
   });
-
-  btnTrash.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      removeProject(e);
-    });
-  });
 }
 
 function createProject() {
@@ -165,8 +164,12 @@ function appendProject(project) {
   i.classList.add("fa-solid");
   i.classList.add("fa-trash-can");
 
-  a.addEventListener("click", (e) => {
-    removeProject(e);
+  a.addEventListener("click", () => {
+    if (!div.classList.contains("active")) {
+      return;
+    }
+
+    removeProject(div);
   });
 
   p.textContent = project.title;
@@ -229,14 +232,24 @@ function hideModal() {
   modalTodo.classList.add("hide");
 }
 
-function removeProject(e) {
-  e.preventDefault();
+function removeProject(div) {
+  DUMMY_PROJECTS.forEach((project, i) => {
+    if (+div.id === project.id) {
+      DUMMY_PROJECTS.splice(i, 1);
 
-  if (e.target.tagName === "I") {
-    e.target.parentElement.parentElement.remove();
-  } else {
-    e.target.parentElement.remove();
-  }
+      const todos = document.querySelectorAll(".todo");
+
+      todos.forEach((todo) => {
+        todo.remove();
+      });
+
+      const prevElement = div.previousElementSibling;
+
+      drawCurrent(prevElement);
+
+      div.remove();
+    }
+  });
 }
 
 function removeActive(project) {
