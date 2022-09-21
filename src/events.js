@@ -11,69 +11,14 @@ const btnSubmit = document.querySelectorAll(".btn-submit");
 const btnTrash = document.querySelectorAll(".btn-trash");
 const form = document.querySelectorAll("form");
 
-function drawProjects() {
-  DUMMY_PROJECTS.forEach((project) => {
-    const gridLeft = document.querySelector(".grid-left");
-    const todos = document.querySelectorAll(".todo");
+function defaultProjects() {
+  const defaultProject = new Project(
+    "Essentials",
+    "A place to store all the essential stuff I gotta get done."
+  );
 
-    const currentTitle = document.querySelector(".current-title");
-    const currentDescription = document.querySelector(".current-description");
-
-    const div = document.createElement("div");
-    const p = document.createElement("p");
-    const a = document.createElement("a");
-    const i = document.createElement("i");
-
-    div.classList.add("project");
-    p.classList.add("project-title");
-    a.classList.add("btn-trash");
-    i.classList.add("fa-solid");
-    i.classList.add("fa-trash-can");
-
-    p.textContent = project.title;
-
-    currentTitle.textContent = project.title;
-    currentDescription.textContent = project.description;
-
-    if (project.isActive) {
-      div.classList.add("active");
-    }
-
-    todos.forEach((todo) => {
-      todo.remove();
-    });
-
-    a.append(i);
-    div.append(p, a);
-
-    a.addEventListener("click", (e) => {
-      removeProject(e);
-    });
-
-    gridLeft.append(div);
-
-    // Todos
-    const ul = document.querySelector(".todos");
-
-    project.todos.forEach((todo) => {
-      const li = document.createElement("li");
-      const title = document.createElement("p");
-      const date = document.createElement("h5");
-      const editButton = document.createElement("i");
-      const deleteButton = document.createElement("i");
-
-      li.classList.add("todo");
-
-      editButton.className = "fa-solid fa-pen todo-edit";
-      deleteButton.className = "fa-solid fa-trash todo-delete";
-
-      title.textContent = todo.title;
-      date.textContent = todo.date;
-
-      li.append(title, date, editButton, deleteButton);
-      ul.append(li);
-    });
-  });
+  DUMMY_PROJECTS.push(defaultProject);
+  appendProject(defaultProject);
 }
 
 function drawCurrent(div) {
@@ -92,7 +37,7 @@ function drawCurrent(div) {
         project.classList.remove("active");
       });
 
-      div.classList.add('active');
+      div.classList.add("active");
 
       currentTitle.textContent = project.title;
       currentDescription.textContent = project.description;
@@ -207,6 +152,8 @@ function appendProject(project) {
     div.classList.add("active");
   }
 
+  div.id = project.id;
+
   div.addEventListener("click", (e) => {
     if (e.target.tagName === "DIV" || e.target.tagName === "P") {
       drawCurrent(div);
@@ -264,6 +211,7 @@ function appendTodo(todo) {
   const deleteButton = document.createElement("i");
 
   li.classList.add("todo");
+  li.id = todo.id;
 
   editButton.className = "fa-solid fa-pen todo-edit";
   deleteButton.className = "fa-solid fa-trash todo-delete";
@@ -309,4 +257,4 @@ function clearTodos() {
   });
 }
 
-export { eventListeners, drawProjects };
+export { eventListeners, defaultProjects };

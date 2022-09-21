@@ -1,5 +1,5 @@
 import Project from "./Project";
-import { eventListeners, drawProjects } from "./events";
+import { eventListeners, defaultProjects } from "./events";
 
-drawProjects();
+defaultProjects();
 eventListeners();
