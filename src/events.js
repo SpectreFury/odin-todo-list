@@ -155,6 +155,13 @@ function appendProject(project) {
 
   div.addEventListener("click", (e) => {
     if (e.target.tagName === "DIV" || e.target.tagName === "P") {
+      DUMMY_PROJECTS.forEach((project) => {
+        project.isActive = false;
+
+        if (+div.id === project.id) {
+          project.isActive = true;
+        }
+      });
       drawCurrent(div);
     }
   });
@@ -234,6 +241,8 @@ function hideModal() {
 
 function removeProject(div) {
   DUMMY_PROJECTS.forEach((project, i) => {
+    project.isActive = false;
+
     if (+div.id === project.id) {
       DUMMY_PROJECTS.splice(i, 1);
 
@@ -244,6 +253,14 @@ function removeProject(div) {
       });
 
       const prevElement = div.previousElementSibling;
+
+      if (prevElement) {
+        DUMMY_PROJECTS.forEach((project) => {
+          if (+prevElement.id === project.id) {
+            project.isActive = true;
+          }
+        });
+      }
 
       drawCurrent(prevElement);
 
