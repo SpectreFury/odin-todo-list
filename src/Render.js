@@ -94,6 +94,10 @@ const Render = (function () {
   }
 
   function addTodoAndRender(todo) {
+    if (DUMMY_LIST.length === 0) {
+      return;
+    }
+
     DUMMY_LIST.forEach((project) => {
       if (project.isActive) {
         project.todos.push(todo);
@@ -123,15 +127,27 @@ const Render = (function () {
 
   function removeProject(div, project) {
     const { id } = project;
+    let prevProject;
 
     DUMMY_LIST.forEach((project, i) => {
       if (project.id === id) {
         DUMMY_LIST.splice(i, 1);
+        prevProject = DUMMY_LIST[i - 1];
       }
     });
 
     const prevDiv = div.previousElementSibling;
-    console.log(DUMMY_LIST);
+
+    if (!prevProject || !prevDiv) {
+      currentTitle.textContent = "";
+      currentDescription.textContent = "";
+
+      cleanTodos();
+
+      div.remove();
+    }
+
+    switchProject(prevDiv, prevProject);
 
     div.remove();
   }
