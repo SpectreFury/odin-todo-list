@@ -3,6 +3,8 @@ import DUMMY_LIST from "./dummylist";
 const Render = (function () {
   const gridLeft = document.querySelector(".grid-left");
   const todos = document.querySelector(".todos");
+  const currentTitle = document.querySelector(".current-title");
+  const currentDescription = document.querySelector(".current-description");
 
   function initialRender() {
     DUMMY_LIST.forEach((project) => {
@@ -15,6 +17,9 @@ const Render = (function () {
     const p = document.createElement("p");
     const a = document.createElement("a");
     const i = document.createElement("i");
+
+    currentTitle.textContent = project.title;
+    currentDescription.textContent = project.description;
 
     div.classList.add("project");
 
@@ -58,6 +63,12 @@ const Render = (function () {
     });
   }
 
+  function addProjectAndRender(project) {
+    DUMMY_LIST.push(project);
+
+    renderProject(project);
+  }
+
   function renderTodo(todo) {
     const li = document.createElement("li");
     const p = document.createElement("p");
@@ -80,6 +91,10 @@ const Render = (function () {
     todos.append(li);
   }
 
+  function addTodoAndRender(todo) {
+    renderTodo(todo);
+  }
+
   function switchProject(div, project) {
     if (project.isActive) {
       return;
@@ -89,6 +104,8 @@ const Render = (function () {
 
     project.isActive = true;
     div.classList.add("active");
+
+    changeTitleAndDescription(project);
   }
 
   function removeProject(div, project) {
@@ -115,7 +132,18 @@ const Render = (function () {
     });
   }
 
-  return { initialRender, renderProject };
+  function changeTitleAndDescription(project) {
+    currentTitle.textContent = project.title;
+    currentDescription.textContent = project.description;
+  }
+
+  return {
+    initialRender,
+    renderProject,
+    addTodoAndRender,
+    addProjectAndRender,
+    removeActive
+  };
 })();
 
 export default Render;
