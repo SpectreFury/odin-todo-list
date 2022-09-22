@@ -2,6 +2,7 @@ import DUMMY_LIST from "./dummylist";
 
 const Render = (function () {
   const gridLeft = document.querySelector(".grid-left");
+  const todos = document.querySelector(".todos");
 
   function initialRender() {
     DUMMY_LIST.forEach((project) => {
@@ -51,6 +52,32 @@ const Render = (function () {
     div.append(p, a);
 
     gridLeft.append(div);
+
+    project.todos.forEach((todo) => {
+      renderTodo(todo);
+    });
+  }
+
+  function renderTodo(todo) {
+    const li = document.createElement("li");
+    const p = document.createElement("p");
+    const h5 = document.createElement("h5");
+    const editBtn = document.createElement("i");
+    const deleteBtn = document.createElement("i");
+
+    li.classList.add("todo");
+
+    editBtn.className = "fa-solid fa-pen todo-edit";
+    deleteBtn.className = "fa-solid fa-trash todo-delete";
+
+    li.id = todo.id;
+
+    p.textContent = todo.title;
+    h5.textContent = todo.date;
+
+    li.append(p, h5, editBtn, deleteBtn);
+
+    todos.append(li);
   }
 
   function switchProject(div, project) {
