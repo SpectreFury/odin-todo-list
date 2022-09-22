@@ -58,9 +58,11 @@ const Render = (function () {
 
     gridLeft.append(div);
 
-    project.todos.forEach((todo) => {
-      renderTodo(todo);
-    });
+    if (project.isActive) {
+      project.todos.forEach((todo) => {
+        renderTodo(todo);
+      });
+    }
   }
 
   function addProjectAndRender(project) {
@@ -106,6 +108,11 @@ const Render = (function () {
     div.classList.add("active");
 
     changeTitleAndDescription(project);
+
+    cleanTodos();
+    project.todos.forEach((todo) => {
+      renderTodo(todo);
+    });
   }
 
   function removeProject(div, project) {
@@ -137,12 +144,20 @@ const Render = (function () {
     currentDescription.textContent = project.description;
   }
 
+  function cleanTodos() {
+    const todos = document.querySelectorAll(".todo");
+
+    todos.forEach((todo) => {
+      todo.remove();
+    });
+  }
+
   return {
     initialRender,
     renderProject,
     addTodoAndRender,
     addProjectAndRender,
-    removeActive
+    removeActive,
   };
 })();
 
