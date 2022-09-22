@@ -1,4 +1,3 @@
-import { eventListeners, defaultProjects } from "./events";
+import EventListeners from "./EventListeners";
 
-defaultProjects();
-eventListeners();
+EventListeners();
