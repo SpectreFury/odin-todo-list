@@ -1,4 +1,6 @@
 import EventListeners from "./EventListeners";
-import Project from "./Project";
+import Render from "./Render";
+
+Render.initialRender();
 
 EventListeners();
