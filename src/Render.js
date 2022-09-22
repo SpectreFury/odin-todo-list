@@ -94,6 +94,12 @@ const Render = (function () {
   }
 
   function addTodoAndRender(todo) {
+    DUMMY_LIST.forEach((project) => {
+      if (project.isActive) {
+        project.todos.push(todo);
+      }
+    });
+
     renderTodo(todo);
   }
 
@@ -123,6 +129,9 @@ const Render = (function () {
         DUMMY_LIST.splice(i, 1);
       }
     });
+
+    const prevDiv = div.previousElementSibling;
+    console.log(DUMMY_LIST);
 
     div.remove();
   }
@@ -158,6 +167,8 @@ const Render = (function () {
     addTodoAndRender,
     addProjectAndRender,
     removeActive,
+    cleanTodos,
+    switchProject,
   };
 })();
 

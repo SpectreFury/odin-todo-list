@@ -59,6 +59,7 @@ function EventListeners() {
         }
 
         Render.removeActive();
+        Render.cleanTodos();
 
         const newProject = new Project(title, description);
         Render.addProjectAndRender(newProject);
