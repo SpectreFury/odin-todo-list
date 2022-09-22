@@ -88,6 +88,14 @@ const Render = (function () {
     p.textContent = todo.title;
     h5.textContent = todo.date;
 
+    editBtn.addEventListener("click", () => {
+      editTodo(li, todo);
+    });
+
+    deleteBtn.addEventListener("click", () => {
+      removeTodo(li, todo);
+    });
+
     li.append(p, h5, editBtn, deleteBtn);
 
     todos.append(li);
@@ -150,6 +158,20 @@ const Render = (function () {
     switchProject(prevDiv, prevProject);
 
     div.remove();
+  }
+
+  function removeTodo(li, todo) {
+    const { id } = todo;
+
+    DUMMY_LIST.forEach((project) => {
+      project.todos.forEach((todo, i) => {
+        if (todo.id === id) {
+          project.todos.splice(i, 1);
+        }
+      });
+    });
+
+    li.remove();
   }
 
   function removeActive() {

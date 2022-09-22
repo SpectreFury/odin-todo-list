@@ -49,6 +49,9 @@ function EventListeners() {
         const newTodo = new Todo(title, date);
         Render.addTodoAndRender(newTodo);
 
+        todoTitle.value = '';
+        todoDate.value = '';
+
         hideModal(e);
       } else {
         const title = projectTitle.value;
@@ -63,6 +66,9 @@ function EventListeners() {
 
         const newProject = new Project(title, description);
         Render.addProjectAndRender(newProject);
+
+        projectTitle.value = '';
+        projectDescription.value = '';
 
         hideModal(e);
       }
