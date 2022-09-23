@@ -69,7 +69,12 @@ const Render = (function () {
   function addProjectAndRender(project) {
     DUMMY_LIST.push(project);
 
+    save();
     renderProject(project);
+  }
+
+  function save() {
+    localStorage.setItem("PROJECT_LIST", JSON.stringify(DUMMY_LIST));
   }
 
   function renderTodo(todo) {
@@ -125,6 +130,7 @@ const Render = (function () {
               });
             }
           });
+          save();
         }
       });
 
@@ -159,6 +165,7 @@ const Render = (function () {
       }
     });
 
+    save();
     renderTodo(todo);
   }
 
@@ -190,6 +197,7 @@ const Render = (function () {
         prevProject = DUMMY_LIST[i - 1];
       }
     });
+    save();
 
     const prevDiv = div.previousElementSibling;
 
@@ -217,6 +225,7 @@ const Render = (function () {
         }
       });
     });
+    save();
 
     li.remove();
   }
