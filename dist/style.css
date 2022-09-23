@@ -240,6 +240,17 @@ form .btn-submit {
   background-color: #ffebad;
 }
 
+.input-edit {
+  width: 70%;
+  padding: 0.5rem;
+  background-color: #181818;
+  color: #a2a2a2;
+  font-size: 1.2rem;
+  font-weight: 700;
+  outline: none;
+  border: none;
+}
+
 /* Utility */
 
 .hide {

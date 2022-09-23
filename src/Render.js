@@ -1,4 +1,5 @@
 import DUMMY_LIST from "./dummylist";
+import Todo from "./Todo";
 
 const Render = (function () {
   const gridLeft = document.querySelector(".grid-left");
@@ -89,7 +90,40 @@ const Render = (function () {
     h5.textContent = todo.date;
 
     editBtn.addEventListener("click", () => {
-      editTodo(li, todo);
+      const inputTitle = document.createElement("input");
+      const inputDate = document.createElement("input");
+
+      inputTitle.classList.add("input-edit");
+      inputDate.classList.add("input-edit");
+
+      window.document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const title = inputTitle.value;
+          const date = inputDate.value;
+
+          if (!title || !date) {
+            return;
+          }
+
+          p.textContent = title;
+          h5.textContent = date;
+
+          inputTitle.remove();
+          inputDate.remove();
+
+          li.append(p, h5, editBtn, deleteBtn);
+        }
+      });
+
+      p.remove();
+      h5.remove();
+      editBtn.remove();
+      deleteBtn.remove();
+
+      inputTitle.value = p.textContent;
+      inputDate.value = h5.textContent;
+
+      li.append(inputTitle, inputDate);
     });
 
     deleteBtn.addEventListener("click", () => {
