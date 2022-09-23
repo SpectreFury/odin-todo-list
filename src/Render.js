@@ -112,6 +112,19 @@ const Render = (function () {
           inputDate.remove();
 
           li.append(p, h5, editBtn, deleteBtn);
+
+          const newTodo = new Todo(title, date);
+
+          DUMMY_LIST.forEach((project) => {
+            if (project.isActive) {
+              project.todos.forEach((todo) => {
+                if (todo.id === li.id) {
+                  todo.title = title;
+                  todo.date = date;
+                }
+              });
+            }
+          });
         }
       });
 
