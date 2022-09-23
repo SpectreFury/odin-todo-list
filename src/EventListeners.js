@@ -31,7 +31,7 @@ function EventListeners() {
   });
 
   forms.forEach((form) => {
-    form.addEventListener("click", (e) => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
     });
   });
@@ -49,8 +49,8 @@ function EventListeners() {
         const newTodo = new Todo(title, date);
         Render.addTodoAndRender(newTodo);
 
-        todoTitle.value = '';
-        todoDate.value = '';
+        todoTitle.value = "";
+        todoDate.value = "";
 
         hideModal(e);
       } else {
@@ -67,8 +67,8 @@ function EventListeners() {
         const newProject = new Project(title, description);
         Render.addProjectAndRender(newProject);
 
-        projectTitle.value = '';
-        projectDescription.value = '';
+        projectTitle.value = "";
+        projectDescription.value = "";
 
         hideModal(e);
       }
